@@ -7,13 +7,13 @@
 //
 
 
-
 // Techcrus Weather App is a part of Joel Thomsons Portfolio where the data aquired is passed to and from the Techcrus database
-
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextFieldDelegate {
+    
+    var weatherManager = WeatherManager()
     
     let bgView : UIImageView = {
         let view = UIImageView()
@@ -142,15 +142,51 @@ class MainViewController: UIViewController {
         view.addSubview(LocationLabel)
         setupLocationLabel()
         
+        searchField.delegate = self
+        
     }
     
     @objc func GPSClicked() {
-        print("GPS Pressed")
+        searchField.endEditing(true)
     }
     
     @objc func SearchClicked() {
-        print("Search Pressed")
+        searchField.endEditing(true)
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Search for a location"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let city = searchField.text {
+            weatherManager.fetchWeather(cityName: city)
+        }
+        searchField.text = ""
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func setupBgView() {
         bgView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -172,20 +208,17 @@ class MainViewController: UIViewController {
         searchBtn.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         searchBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         searchBtn.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        //searchBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func setupSearchField() {
         searchField.leadingAnchor.constraint(equalTo: gpsBtn.trailingAnchor, constant: 10).isActive = true
         searchField.trailingAnchor.constraint(equalTo: searchBtn.leadingAnchor, constant: -10).isActive = true
         searchField.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        //searchField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 3/4).isActive = true
         searchField.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     func setupImageView() {
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
-        //imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
         imageView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 10).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
@@ -193,7 +226,6 @@ class MainViewController: UIViewController {
     
     func setupClabelView() {
         ClabelView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0).isActive = true
-        //imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
         ClabelView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
         ClabelView.widthAnchor.constraint(equalToConstant: 80).isActive = true
         ClabelView.heightAnchor.constraint(equalToConstant: 120).isActive = true
@@ -201,7 +233,6 @@ class MainViewController: UIViewController {
     
     func setupDegreeView() {
         degreeView.trailingAnchor.constraint(equalTo: ClabelView.leadingAnchor, constant: -0).isActive = true
-        //imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
         degreeView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
         degreeView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         degreeView.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -209,7 +240,6 @@ class MainViewController: UIViewController {
     
     func setupTempView() {
         TempView.trailingAnchor.constraint(equalTo: degreeView.leadingAnchor, constant: -0).isActive = true
-        //imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
         TempView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 15).isActive = true
         TempView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         TempView.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -217,7 +247,6 @@ class MainViewController: UIViewController {
     
     func setupLocationLabel() {
         LocationLabel.trailingAnchor.constraint(equalTo: ClabelView.trailingAnchor, constant: -20).isActive = true
-        //imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
         LocationLabel.topAnchor.constraint(equalTo: ClabelView.bottomAnchor, constant: 0).isActive = true
         LocationLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
         LocationLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
