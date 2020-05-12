@@ -15,6 +15,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     var weatherManager = WeatherManager()
     
+    let containerView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let bgView : UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "background")
@@ -115,33 +121,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(bgView)
-        setupBgView()
-        
-        view.addSubview(gpsBtn)
-        SetupGpsBtn()
-        
-        view.addSubview(searchBtn)
-        SetupSearchBtn()
-        
-        view.addSubview(searchField)
-        setupSearchField()
-        
-        view.addSubview(imageView)
-        setupImageView()
-        
-        view.addSubview(ClabelView)
-        setupClabelView()
-        
-        view.addSubview(degreeView)
-        setupDegreeView()
-        
-        view.addSubview(TempView)
-        setupTempView()
-        
-        view.addSubview(LocationLabel)
-        setupLocationLabel()
-        
+        addSubviews()
         searchField.delegate = self
         
     }
@@ -175,19 +155,36 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         searchField.text = ""
     }
     
+    func addSubviews() {
+        view.addSubview(bgView)
+        setupBgView()
+        
+        view.addSubview(gpsBtn)
+        SetupGpsBtn()
+        
+        view.addSubview(searchBtn)
+        SetupSearchBtn()
+        
+        view.addSubview(searchField)
+        setupSearchField()
+        
+        view.addSubview(imageView)
+        setupImageView()
+        
+        view.addSubview(ClabelView)
+        setupClabelView()
+        
+        view.addSubview(degreeView)
+        setupDegreeView()
+        
+        view.addSubview(TempView)
+        setupTempView()
+        
+        view.addSubview(LocationLabel)
+        setupLocationLabel()
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     func setupBgView() {
         bgView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         bgView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
