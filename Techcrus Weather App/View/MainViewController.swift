@@ -15,12 +15,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     var weatherManager = WeatherManager()
     
-    let containerView : UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let bgView : UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "background")
