@@ -8,42 +8,19 @@
 
 import UIKit
 
-class ViewController: MainViewController {
+class ViewController: MainViewController, WeatherManagerDelegate {
+    
+    func didUpdateWeather(weather: WeatherModel) {
+        print(weather.temperature)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        weatherManager.delegate = self
         //searchField.delegate = self
         
     }
-//    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        searchField.endEditing(true)
-//
-//        if let city = searchField.text {
-//            weatherManager.fetchWeather(cityName: city)
-//        }
-//        searchField.text = ""
-//        return true
-//    }
-//
-//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//        if textField.text != "" {
-//            return true
-//        } else {
-//            textField.placeholder = "Search for a location"
-//            return false
-//        }
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        if let city = searchField.text {
-//            weatherManager.fetchWeather(cityName: city)
-//            print(weatherManager.weatherURL)
-//        }
-//        searchField.text = ""
-//    }
-//    
     
 
 
