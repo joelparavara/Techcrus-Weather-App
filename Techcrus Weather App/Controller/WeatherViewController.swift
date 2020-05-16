@@ -10,8 +10,12 @@ import UIKit
 
 class ViewController: MainViewController, WeatherManagerDelegate {
     
-    func didUpdateWeather(weather: WeatherModel) {
-        print(weather.temperature)
+    func didUpdateWeather(_ weatherManager: WeatherManager ,weather: WeatherModel) {
+        temp = weather.temperatureString
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
     
 

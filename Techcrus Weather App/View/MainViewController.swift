@@ -13,6 +13,8 @@ import UIKit
 
 class MainViewController: UIViewController, UITextFieldDelegate {
     
+    var temp = "32"
+    
     var weatherManager = WeatherManager()
     
     let bgView : UIImageView = {
@@ -176,6 +178,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(LocationLabel)
         setupLocationLabel()
+        
+        updateScreen()
+    }
+    
+    func updateScreen() {
+        TempView.text = temp
     }
     
 
